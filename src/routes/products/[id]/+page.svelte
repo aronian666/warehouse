@@ -1,22 +1,21 @@
 <script>
-    import { Form, Inputs, Modal } from "../../../lib/components";
+    import { Form, Icon, Inputs, Modal } from "../../../lib/components";
     import Table from "../../../lib/components/Table.svelte";
     import { Product, Record } from "../../../lib/tables";
+    import { goto } from "$app/navigation";
 
     export let data;
     $: product = new Product(data.product);
     $: details = [
-        { name: "Categoria", value: product.category.name },
-        { name: "Unidad", value: product.unit.name },
-        { name: "Precio", value: product.price.toFixed(2) },
-        { name: "Creado por", value: product.user?.name },
-        { name: "Cantidad", value: product.quantity },
+        { name: "Categoria", value: product.category.name, icon: "category" },
+        { name: "Unidad", value: product.unit.name, icon: "shelves" },
+        { name: "Creado por", value: product.user?.name, icon: "person" },
+        { name: "Cantidad", value: product.quantity, icon: "tag" },
     ];
     let record;
     const form = {
         client: { title: "A nombre de", required: true, minlength: "4" },
-        quantity: { title: "Cantidad", required: true },
-        price: { title: "Precio" },
+        quantity: { title: "Cantidad", required: true, type: "number" },
         type: { hidden: true },
         product_id: { hidden: true },
     };
@@ -26,11 +25,32 @@
     <h1>{product.name}</h1>
     <a href="/products/{product.id}/edit" class="button">Editar</a>
 </div>
-<section class="panel grid auto-fit">
-    {#each details as { name, value }}
-        <span style="font-weight: 600;">{name}</span>
-        <span>{value}</span>
-    {/each}
+<section class="panel grid" style="gap: 1rem">
+    <div class="grid auto-fit">
+        {#each details as { name, value, icon }}
+            <div class="flex items" style="gap: 1rem">
+                <span style="font-weight: 600;">{name}</span>
+                <Icon {icon} />
+                <span>{value}</span>
+            </div>
+        {/each}
+    </div>
+    <div class="flex" style="gap: 1rem">
+        <a
+            href="/products/{product.id}/edit"
+            style="--color: var(--color2)"
+            class="button">Editar</a
+        >
+        <button
+            on:click={async () => {
+                if (!confirm("Estas seguro de querer eliminar esto?")) return;
+                await product.delete();
+                goto("/products");
+            }}
+            class="holed"
+            style="--color: var(--red)">Eliminar</button
+        >
+    </div>
 </section>
 
 <section class="grid auto-fit" style="gap: 1rem">
@@ -48,11 +68,10 @@
         <Table
             let:item
             array={product.records.filter((record) => !record.type)}
-            header={["Cantidad", "Precio", "Encargado", "Recibido de", "Fecha"]}
+            header={["Cantidad", "Encargado", "Recibido de", "Fecha"]}
         >
             <tr>
                 <td>{item.quantity}</td>
-                <td>{item.price.toFixed(2)}</td>
                 <td>{item.user.name}</td>
                 <td>{item.client}</td>
                 <td>{item.created_at.toLocaleString()}</td>
@@ -64,6 +83,7 @@
             <h2>Salidas</h2>
             <button
                 class="holed"
+                style="--color: var(--red)"
                 on:click={(e) =>
                     (record = new Record({ type: 1, product_id: product.id }))}
                 >Agregar</button
@@ -72,11 +92,10 @@
         <Table
             let:item
             array={product.records.filter((record) => record.type)}
-            header={["Cantidad", "Precio", "Encargado", "Entregado a", "Fecha"]}
+            header={["Cantidad", "Encargado", "Entregado a", "Fecha"]}
         >
             <tr>
                 <td>{item.quantity}</td>
-                <td>{item.price.toFixed(2)}</td>
                 <td>{item.user?.name}</td>
                 <td>{item.client}</td>
                 <td>{item.created_at.toLocaleString()}</td>

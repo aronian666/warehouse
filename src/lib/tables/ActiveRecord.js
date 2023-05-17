@@ -20,10 +20,9 @@ export default class ActiveRecord {
         return null
     }
     static async filter({ match = [], search = "", order = "id", ascending = true, page = 0 } = {}, { perPage = 10, select = "*", name = "", raw = false } = {}) {
-        console.log("Estoy haciendo una peticion")
         const query = supabase.from(name || this.table).select(select, { count: "exact" })
         const or = this.getFilterString(match, search)
-        console.log(or)
+
         if (or) query.or(or)
         let { data, error, count } = await query.order(order, { ascending }).range(page * perPage, perPage * (page + 1) - 1)
         if (error) {

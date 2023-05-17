@@ -3,6 +3,7 @@
     export let title;
     export let hidden = false;
     export let value = "";
+    export let error = false;
 </script>
 
 <fieldset class:hidden>
@@ -19,4 +20,14 @@
         on:keypress
         {...$$restProps}
     />
+    {#if error}
+        <span>{error}</span>
+    {/if}
 </fieldset>
+
+<style>
+    span {
+        font-size: 0.9rem;
+        color: var(--red);
+    }
+</style>

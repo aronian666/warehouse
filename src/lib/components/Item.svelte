@@ -33,11 +33,16 @@
                 readonly={!edit}
             />
         </fieldset>
-        <button class="icon" type="button" on:click={(e) => (expand = !expand)}>
+        <button
+            class="small holed"
+            type="button"
+            style="--color: var(--dark)"
+            on:click={(e) => (expand = !expand)}
+        >
             <Icon icon={expand ? "expand_less" : "expand_more"} />
         </button>
         <button
-            class="icon"
+            class="small holed"
             type="button"
             on:click={(e) =>
                 (newObject = new model({
@@ -54,14 +59,20 @@
 </li>
 {#if newObject}
     <Modal class="panel" onClose={(e) => (newObject = null)}>
-        <h2>{newObject.category[property]}</h2>
+        <h2 class="text-center">{newObject.category[property]}</h2>
         <Form
             onSubmit={async () => {
                 newObject = await newObject.create();
+
+                expand = false;
+                setTimeout(() => {
+                    expand = true;
+                }, 100);
+
                 newObject = null;
             }}
         >
-            <Input title="Categoria" bind:value={newObject[property]} />
+            <Input title="Sub categoria" bind:value={newObject[property]} />
             <button type="submit">Agregar</button>
         </Form>
     </Modal>

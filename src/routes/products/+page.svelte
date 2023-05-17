@@ -37,11 +37,17 @@
             },
         ],
     };
-    $: Product.filter(filter).then(({ data, count: c }) => {
+    $: Product.filter(filter, {
+        select: "*, category:category_id(*), unit:unit_id(*)",
+    }).then(({ data, count: c }) => {
         products = data;
         count = c;
     });
 </script>
+
+<svelte:head>
+    <title>Productos</title>
+</svelte:head>
 
 <section class="panel grid" style="gap: 1rem">
     <div class="flex content items" style="--c: space-between">
@@ -51,12 +57,20 @@
     <div class="flex" style="gap: 1rem">
         <Inputs bind:object={filter} {form} />
     </div>
-    <Table header={["Nombre"]} let:item array={products}>
+    <Table
+        header={["Nombre", "Cantidad", "Categoria", "Unidad", "Creado"]}
+        let:item
+        array={products}
+    >
         <tr
             style="cursor: pointer"
             on:click={(e) => goto("/products/" + item.id)}
         >
             <td>{item.name}</td>
+            <td>{item.quantity}</td>
+            <td>{item.category.name}</td>
+            <td>{item.unit.name}</td>
+            <td>{item.created_at.toLocaleString()}</td>
         </tr>
     </Table>
     <Pagination {count} bind:page={filter.page} />

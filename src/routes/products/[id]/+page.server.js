@@ -3,7 +3,7 @@ import { formToJson } from "../../../lib/utils"
 export const load = async ({ params }) => {
     const select = "*, category:category_id(*), records(*, user:user_id(*)), unit:unit_id(*), user:user_id(*)"
     const product = await Product.find({ id: "eq." + params.id }, { select, raw: true })
-    console.log(product)
+
     return { product }
 }
 

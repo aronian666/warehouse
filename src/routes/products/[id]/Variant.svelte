@@ -36,7 +36,6 @@
                 $cart.push(item);
                 //cart.set($cart); // Por verse, tal vez ya funciona
                 item = new Item(item);
-                console.log($cart);
             }}
         >
             <Icon icon="shopping_cart" />

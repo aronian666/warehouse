@@ -7,8 +7,7 @@
     <title>Categorias</title>
 </svelte:head>
 
-<section>
-    <h1>Categorias</h1>
-    <button>Agregar raiz</button>
+<h1>Categorias</h1>
+<section class="panel flex direction" style="gap: 1rem">
+    <Nested model={Category} key="category_id" value={null} />
 </section>
-<Nested model={Category} key="category_id" value={null} />
