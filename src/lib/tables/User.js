@@ -12,7 +12,7 @@ export default class User extends ActiveRecord {
         } else {
             this.name = name.replaceAll('"', "")
             this.role = parseInt(role)
-            this.picture = picture.replaceAll('"', "")
+            this.picture = picture?.replaceAll('"', "")
         }
     }
     get roleString() {

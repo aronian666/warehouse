@@ -23,7 +23,7 @@
 >
     <tr>
         <td>
-            <img src={item.picture.replaceAll('"', "")} alt={item.name} />
+            <img src={item.picture} alt={item.name} />
         </td>
         <td>{item.name}</td>
         <td>{item.email}</td>
