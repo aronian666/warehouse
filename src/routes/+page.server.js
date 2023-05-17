@@ -5,6 +5,8 @@ export const actions = {
     async signIn({ request, locals }) {
         const { user } = formToJson(await request.formData())
         const { data, error: err } = await locals.supabase.auth.signInWithPassword(user)
+        //console.log(data)
+        //cookies.set('sb-auth-token', data.session.access_token, { maxAge: 60 * 60 * 24 * 7 * 1000 });
         if (err) {
             if (err instanceof AuthApiError && err.status === 400) {
                 return fail(400, {
