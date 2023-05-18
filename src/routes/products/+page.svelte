@@ -8,7 +8,8 @@
     let filter = {
         search: "",
         page: 0,
-        order: "name",
+        order: "created_at",
+        ascending: false,
         match: [
             { key: "category_id", value: "", sign: "eq" },
             { key: "unit_id", value: "", sign: "eq" },

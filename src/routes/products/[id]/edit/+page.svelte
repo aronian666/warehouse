@@ -6,12 +6,12 @@
     let product = new Product(data.product);
     const form = {
         name: { title: "Nombre del producto", required: true },
-        category: {
+        category_id: {
             title: "Categoria",
             required: true,
-            type: "selectsearch",
+            type: "select",
             options: data.categories,
-            show: "name",
+            option: ["id", "name"],
         },
         unit_id: {
             title: "Unidad",
