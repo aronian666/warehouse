@@ -13,7 +13,7 @@
     export let object = {};
     export let form = {};
     export let objectName;
-    objectName = objectName || object.constructor.name.toLowerCase();
+    objectName = objectName || object.constructor.model;
 </script>
 
 {#each Object.entries(form) as [key, value]}

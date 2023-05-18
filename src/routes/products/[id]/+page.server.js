@@ -11,7 +11,7 @@ export const load = async ({ params }) => {
 export const actions = {
     addRecord: async ({ request, locals }) => {
         let { record } = formToJson(await request.formData())
-        record.user_id = locals.current_user.id
+        console.log(record)
         record = new Record(record)
         await record.create()
         return { success: true }

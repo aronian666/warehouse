@@ -5,4 +5,5 @@ export default class Unit extends ActiveRecord {
         super(unit)
     }
     static table = "units"
+    static model = "unit"
 }

@@ -62,5 +62,6 @@ export default class Product extends ActiveRecord {
     }
     static table = "products"
     static searchProperties = ["name"]
+    static model = "product"
     //static permit = ["options"]
 }

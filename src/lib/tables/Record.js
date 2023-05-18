@@ -5,4 +5,5 @@ export default class Record extends ActiveRecord {
         super(record, { user: User })
     }
     static table = "records"
+    static model = "record"
 }

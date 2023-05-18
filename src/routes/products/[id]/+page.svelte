@@ -18,6 +18,7 @@
         quantity: { title: "Cantidad", required: true, type: "number" },
         type: { hidden: true },
         product_id: { hidden: true },
+        user_id: { hidden: true },
     };
 </script>
 
@@ -60,8 +61,11 @@
             <button
                 class="holed"
                 on:click={(e) =>
-                    (record = new Record({ type: 0, product_id: product.id }))}
-                >Agregar</button
+                    (record = new Record({
+                        type: 0,
+                        product_id: product.id,
+                        user_id: data.current_user.id,
+                    }))}>Agregar</button
             >
         </div>
 
@@ -85,8 +89,11 @@
                 class="holed"
                 style="--color: var(--red)"
                 on:click={(e) =>
-                    (record = new Record({ type: 1, product_id: product.id }))}
-                >Agregar</button
+                    (record = new Record({
+                        type: 1,
+                        product_id: product.id,
+                        user_id: data.current_user.id,
+                    }))}>Agregar</button
             >
         </div>
         <Table

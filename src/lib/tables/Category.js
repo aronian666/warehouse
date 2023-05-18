@@ -7,4 +7,5 @@ export default class Category extends ActiveRecord {
         return categories.filter(category => category.category_id === this.id)
     }
     static table = "categories"
+    static model = "Category"
 }

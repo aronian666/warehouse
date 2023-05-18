@@ -10,4 +10,5 @@ export default class Item extends ActiveRecord {
         return this.price * this.quantity
     }
     static table = "items"
+    static model = "item"
 }

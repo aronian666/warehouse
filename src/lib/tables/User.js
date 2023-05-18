@@ -20,4 +20,5 @@ export default class User extends ActiveRecord {
         return roles[this.role]
     }
     static table = "users"
+    static model = "user"
 }
